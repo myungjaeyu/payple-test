@@ -14,7 +14,40 @@
 
         <script>
 
-            console.log(PaypleCpayAuthCheck)
+            const key = {
+                cst_id: 'test',
+                cust_key: 'abcd1234567890',
+                auth_url: 'https://testcpay.payple.kr/php/auth.php'
+            }
+
+            const form = {
+                name: '하얀눈',
+                amount: 11000,
+                buyer_no: `payple_${ new Date().getMilliseconds() }`,
+                buyer_email: 'example@example.com',
+                buyer_name : '김테스트',
+                buyer_tel: '01012345678'
+            }
+
+            const data = {
+                PCD_CST_ID: key.cst_id,
+                PCD_CUST_KEY: key.cust_key,
+                PCD_AUTH_URL: key.auth_url,
+                PCD_CPAY_VER: '1.0.1',              /* required */
+                PCD_PAY_TYPE: 'transfer',           /* required */
+                PCD_PAY_WORK: 'PAY',                /* required */
+                PCD_PAY_GOODS: form.name,           /* required */
+                PCD_PAY_TOTAL: form.amount,         /* required */
+                PCD_PAYER_NO: form.buyer_no,        /* required */
+                PCD_PAY_ISTAX: 'N',                 /* Default: Y, 비과세: N */
+                PCD_PAYER_EMAIL: form.buyer_email,
+                PCD_PAYER_NAME: form.buyer_name,
+                PCD_PAYER_HP: form.buyer_tel,
+                // PCD_RST_URL: '/redirect.html',
+                callbackFunction: e => console.log(e)
+            }
+
+            PaypleCpayAuthCheck(data)
 
         </script>
 
